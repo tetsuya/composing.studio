@@ -18,7 +18,9 @@ COPY package.json package-lock.json ./
 COPY --from=wasm /home/rust/src/cstudio-wasm/pkg cstudio-wasm/pkg
 RUN npm ci
 COPY . .
-RUN npm run build
+# The wasm pkg is prebuilt in the wasm stage above; call vite directly to
+# skip the npm prebuild hook (this image has no Rust toolchain).
+RUN npx vite build
 
 FROM scratch
 COPY --from=frontend /usr/src/app/dist dist

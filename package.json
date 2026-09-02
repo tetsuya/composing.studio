@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "prebuild": "wasm-pack build --target web cstudio-wasm",
     "build": "vite build",
     "serve": "vite preview",
     "format": "prettier --write ."
