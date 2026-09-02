@@ -18,5 +18,7 @@ export PATH="$WASM_PACK_DIR:$PATH"
 # wasm build artifacts: keep cargo's incremental output between builds
 export CARGO_TARGET_DIR="$CACHE_DIR/wasm-target"
 
+rustup target add wasm32-unknown-unknown
+
 cd "$BUILD_DIR"
 wasm-pack build --target web cstudio-wasm
