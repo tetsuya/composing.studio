@@ -1,0 +1,31 @@
+{
+  "name": "composing-studio",
+  "description": "",
+  "keywords": [
+    "build",
+    "build.io"
+  ],
+  "website": "https://small-sharp-tool.com/",
+  "repository": "git@github.com:tetsuya/composing.studio.git",
+  "logo": "",
+  "success_url": "/",
+  "stack": "heroku-24",
+  "formation": {
+    "web": {
+      "size": "Basic",
+      "display": "bash -c ./target/release/cstudio-server",
+      "quantity": 4
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/usiegl00/heroku-buildpack-rust"
+    },
+    {
+      "url": "https://github.com/weibeld/heroku-buildpack-run"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ]
+}
