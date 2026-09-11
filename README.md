@@ -73,6 +73,40 @@ npm run dev
 This command will open a browser window to `http://localhost:3000`, with hot
 reloading on changes.
 
+## Deploying on Build
+
+[Build](https://build.io/) is a Heroku-compatible PaaS, so this app deploys
+straight from git with the `bld` CLI.
+
+1. Create the app and add its git URL as a remote:
+
+   ```
+   bld apps:create composing-studio
+   git remote add bld "$(bld apps:info -a composing-studio -j | jq -r '.git_url')"
+   ```
+
+2. Add the three buildpacks — **the order matters**, since each one sets up the
+   toolchain the next depends on:
+
+   ```
+   bld buildpacks:add https://github.com/usiegl00/heroku-buildpack-rust --app composing-studio
+   bld buildpacks:add https://github.com/weibeld/heroku-buildpack-run --app composing-studio
+   bld buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs --app composing-studio
+   ```
+
+3. Push to deploy:
+
+   ```
+   git push bld main
+   ```
+
+4. Once the build finishes, check the dyno and open the app:
+
+   ```
+   bld ps -a composing-studio
+   bld apps:info -a composing-studio -j | jq -r '.web_url'
+   ```
+
 ## Contributing
 
 This project is still in a **very experimental** phase. We're exploring
